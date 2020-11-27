@@ -8,10 +8,16 @@ def shop(request):
     products=product.objects.all()
     n=len(products)
     nslides=math.ceil(n/4)
-    param={'product':products,'no_of_slides':nslides,
-    'range':range(1,nslides)}
+
+    allprods=[[products,range(1,nslides),nslides],[products,range(1,nslides),nslides]]
+
+    param={'allprods':allprods,'nslides':range(1,nslides)}
     return render(request,'home.html',param)
+
+
 def shop1(request):
-    return render(request,'home1.html')
+    return render(request,'backup.html')
+
+
 def about(request):
     return render(request,'about.html')
