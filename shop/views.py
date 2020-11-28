@@ -17,8 +17,11 @@ def shop(request):
     return render(request,'home.html',param)
 
 
-def shop1(request):
-    return render(request,'backup.html')
+def tracker(request):
+    return render(request,'tracker.html')
+
+def contact(request):
+    return render(request,'contact.html')
 
 
 def about(request):

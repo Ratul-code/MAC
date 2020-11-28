@@ -116,5 +116,8 @@
         console.log(cart)
         localStorage.setItem('cart', JSON.stringify(cart))
     })
+    $('#popcart').popover()
+    document.getElementById('popcart').setAttribute('data-content','<h5>Cart for your items on our shop</h5>');
+
 </script>
 {% endblock %}
