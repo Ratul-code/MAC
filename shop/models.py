@@ -5,15 +5,15 @@ from django.db import models
 class product(models.Model):
     product_id=models.AutoField
 
-    product_name=models.CharField(max_length=50,default="")
+    Name=models.CharField(max_length=50,default="")
 
-    Product_category=models.CharField(max_length=50,default="")
+    Category=models.CharField(max_length=50,default="")
 
-    Product_subcategory=models.CharField(max_length=50,default="")
+    Subcategory=models.CharField(max_length=50,default="")
 
-    product_desc=models.CharField(max_length=200,default="")
+    Description=models.CharField(max_length=200,default="")
 
-    product_price=models.IntegerField(default=0)
+    Price=models.IntegerField(default=0)
 
     pub_date=models.DateField()
 
@@ -21,4 +21,4 @@ class product(models.Model):
 
 
     def __str__(self):
-        return self.product_name
+        return self.Name

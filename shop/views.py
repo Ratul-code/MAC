@@ -5,13 +5,15 @@ import math
 
 # Create your views here.
 def shop(request):
-    products=product.objects.all()
-    n=len(products)
-    nslides=math.ceil(n/4)
-
-    allprods=[[products,range(1,nslides),nslides],[products,range(1,nslides),nslides]]
-
-    param={'allprods':allprods,'nslides':range(1,nslides)}
+    allprods=[]
+    category=product.objects.values('Category','id')
+    catprod={item["Category"] for item in category}
+    for cat in catprod:
+        prod=product.objects.filter(Category=cat)
+        n=len(prod)
+        nslides=math.ceil(n/4)
+        allprods.append([prod,range(1,nslides),nslides])
+    param={'allprods':allprods}
     return render(request,'home.html',param)
 
 
