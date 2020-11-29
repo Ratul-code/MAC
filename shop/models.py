@@ -22,3 +22,17 @@ class product(models.Model):
 
     def __str__(self):
         return self.Name
+
+class Contact(models.Model):
+    msg_id=models.AutoField(primary_key=True)
+
+    Name=models.CharField(max_length=50,default="")
+
+    Email=models.CharField(max_length=50,default="")
+
+    Phone=models.CharField(max_length=50,default="")
+
+    Description=models.CharField(max_length=500,default="")
+
+    def __str__(self):
+        return self.Name

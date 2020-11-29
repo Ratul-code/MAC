@@ -6,5 +6,7 @@ urlpatterns = [
     path("",views.shop,name="shopapp"),
     path("about",views.about,name="about"),
     path("tracker",views.tracker,name="tracker"),
-    path("contact",views.contact,name="contact")
+    path("contact",views.contact,name="contact"),
+    path("product/<int:myid>",views.prodview,name="product"),
+    path("contacts",views.contacts,name="contacts"),
 ]

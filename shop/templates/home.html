@@ -48,8 +48,8 @@
 {% block body %}
 <!--Slideshow starts here -->
 <div class="container">
-    {% for products,range,nslides in allprods %}
-    <h1>{{products.0.Category}}</h1>
+    {% for product,range,nslides in allprods %}
+    <h1>{{product.0.Category}}</h1>
     <div class="row">
 
         <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
@@ -62,14 +62,15 @@
             <div class="container carousel-inner no-padding">
 
                 <div class="carousel-item active">
-                    {% for i in products %}
+                    {% for i in product %}
                     <div class="col-xs-3 col-sm-3 col-md-3">
                         <div class="card" style="width: 18rem;">
                             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{i.Name}}</h5>
-                                <p class="card-text">{{i.Description}}</p>
-                                <button id="product{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
+                                <p class="card-text">{{i.Description|slice:"0:25"}}. . .</p>
+                                <button id="prod{{i.id}}" class="btn btn-danger cart">Add To Cart</button>
+                                <a href=/shop/product/{{i.id}}><button id="qv{{i.id}}" class="btn btn-primary">Quick View</button></a>
                             </div>
                         </div>
                     </div>

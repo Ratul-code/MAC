@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from shop.models import product
+from shop.models import product,Contact
 import math
 
 # Create your views here.
@@ -17,10 +17,35 @@ def shop(request):
     return render(request,'home.html',param)
 
 
+def prodview(request,myid):
+    # fetching bny id
+    Product=product.objects.filter(id=myid)
+    # print(Product)
+
+    return render(request,'pordview.html',{'product':Product[0]})
+
+
 def tracker(request):
     return render(request,'tracker.html')
 
 def contact(request):
+    if request.method=='POST':
+        name=request.POST.get('name','')
+        email=request.POST.get('email','')
+        phone=request.POST.get('phone','')
+        desc=request.POST.get('message','')
+        contact=Contact(Name=name,Email=email,Phone=phone,Description=desc)
+        contact.save()
+    return render(request,'contact.html')
+
+def contacts(request):
+    if request.method=='POST':
+        name=request.POST.get('name','')
+        email=request.POST.get('email','')
+        phone=request.POST.get('phone','')
+        desc=request.POST.get('message','')
+        contact=Contact(Name=name,Email=email,Phone=phone,Description=desc)
+        contact.save()
     return render(request,'contact.html')
 
 
