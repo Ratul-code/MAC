@@ -43,6 +43,7 @@
             </form>
             <button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-html='true' data-toggle="popover" data-placement="bottom" data-content="Vivamus
 sagittis lacus vel augue laoreet rutrum faucibus.">
+<img src="/static/logoo.jpg" alt=""   width="30px" height="25pxs">
   cart( <span id="cart">0</span> )
 </button>
         </div>
@@ -59,6 +60,17 @@ sagittis lacus vel augue laoreet rutrum faucibus.">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
+        <script>
+            //Cart updating task
+    function updatecartt(cart) {
+        var sum = 0
+        for (item in cart) {
+            sum = sum +  cart[item]
+        }
+    document.getElementById('cart').innerHTML = sum
+    }
+    // updatecartt(cart)
+        </script>
         {% block js %} {% endblock %}
 </body>
 

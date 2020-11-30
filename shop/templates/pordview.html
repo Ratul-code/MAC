@@ -13,10 +13,12 @@
         </div>
         <div class="col-md-8">
             <h1>{{product.Name}}</h1>
+            <h1>{{product.Category}}</h1>
+            <h1>{{product.Subcategory}}</h1>
             <p><b>TK.{{product.Price}}</b></p>
             <p>{{product.Description}}</p>
             <button class="btn btn-danger">Buy Now</button>
-            <button id="{{product.id}}" class="btn btn-primary cart">Add To Cart</button>
+            <span id="divprod{{product.id}}"><button  id="prod{{product.id}}" class="btn btn-primary cart">Add To Cart</button></span>
         </div>
         </div>
     </div>
@@ -29,10 +31,8 @@
     }
     else {
         cart = JSON.parse(localStorage.getItem('cart'))
-        document.getElementById('cart').innerHTML = Object.keys(cart).length
     }
     $('.cart').click(function () {
-        console.log('clicked');
         idstr = this.id.toString()
         if (cart[idstr] != undefined) {
             cart[idstr] = cart[idstr] + 1
@@ -45,6 +45,6 @@
     })
     $('#popcart').popover()
     document.getElementById('popcart').setAttribute('data-content','<h5>Cart for your items on our shop</h5>');
-
+    updatecartt(cart)
 </script>
 {% endblock %}

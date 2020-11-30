@@ -28,6 +28,10 @@ def prodview(request,myid):
 def tracker(request):
     return render(request,'tracker.html')
 
+
+def checkout(request):
+    return render(request,'checkout.html')
+
 def contact(request):
     if request.method=='POST':
         name=request.POST.get('name','')
