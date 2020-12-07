@@ -27,6 +27,7 @@
     body .carousel-indicators {
         bottom: 0;
     }
+
     body .carousel-control-prev-icon,
     body .carousel-control-next-icon {
         background-color: blue;
@@ -42,6 +43,10 @@
     body .no-padding {
         padding-left: 0;
         padding-right: 0;
+    }
+    .pricetext{
+        font-style: italic;background-color: rgba(128, 128, 128, 0.205);
+        
     }
 </style>
 {% endblock %}
@@ -68,11 +73,11 @@
                             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 id="nameprod{{i.id}}" class="card-title">{{i.Name}}</h5>
-                                <p class="card-text">{{i.Description|slice:"0:25"}}. . .</p>
+                                <p class="card-text">{{i.Description|slice:"0:25"}}. . .<br>
+                                <span class="pricetext"><span id="priceprod{{i.id}}">{{i.Price}}</span><b>&#x9f3;&#10240;</b></span></p>
                                 <span id="divprod{{i.id}}" class="divprod">
                                     <button id="prod{{i.id}}" class="btn btn-warning cart">Add To Cart</button>
-                                    <a href=/shop/product/{{i.id}}></span>
-
+                                </span><a href=/shop/product/{{i.id}}>
                                 <button id="qv{{i.id}}" class="btn btn-primary">Quick View</button></a>
                             </div>
                         </div>
@@ -111,16 +116,19 @@
 
 
 
-
-
     //All about Add To Cart button
-    $('.divprod').on('click','button.cart', function (){
+    $('.divprod').on('click', 'button.cart', function () {
         idstr = this.id.toString()
         if (cart[idstr] != undefined) {
-            cart[idstr] = cart[idstr] + 1
+            qty = cart[idstr][1] + 1
+            price = parseInt(document.getElementById('price' +idstr).innerHTML) 
+            cart[idstr] = [name, qty, price]
         }
         else {
-            cart[idstr] = 1
+            qty = 1
+            name = document.getElementById('name' + idstr).innerHTML
+            price = parseInt(document.getElementById('price' +idstr).innerHTML) 
+            cart[idstr] = [name, qty, price]
         }
         updatecart(cart)
         updatepopover(cart)
@@ -131,34 +139,33 @@
 
 
     //Popover taks starts here
-    // $('#popcart').popover()
-    function updatepopover(cart){
-        popoverstr="<h5>Cart for your items on our shop</h5> <div class='mx-2 my-2'"+"<br>"
-        var i=1;
-        for(item in cart){
-            popoverstr=popoverstr + "<b>" + i + ". </b>" + document.getElementById('name'+item).innerHTML.slice( 0,19) +"..."+ "qty : " + cart[item]  + "</br>"
-            i=i+1
+    $('#popcart').popover()
+    function updatepopover(cart) {
+        popoverstr = "<h5>Cart for your items on our shop</h5> <div class='mx-2 my-2'" + "<br>"
+        var i = 1;
+        for (item in cart) {
+            popoverstr = popoverstr + "<b>" + i + ". </b>" + document.getElementById('name' + item).innerHTML.slice(0, 19) + "..." + "qty : " + cart[item][1] + "</br>"
+            i = i + 1
         }
-        popoverstr=popoverstr + "</div>"
-        popoverstr=popoverstr+'<a href="checkout"><button id="checkout" class="btn btn-primary">Checkout</button></a><button id="clearcart" onclick="clearcart()" class="btn btn-danger mx-2">Clear Cart</button>'
+        popoverstr = popoverstr + "</div>"
+        popoverstr = popoverstr + '<a href="checkout"><button id="checkout" class="btn btn-outline-primary">Checkout</button></a><button id="clearcart" onclick="clearcart()" class="btn btn-outline-danger mx-2">Clear Cart</button>'
         document.getElementById('popcart').setAttribute('data-content', popoverstr);
-        
+        $('#popcart').popover('show')
+
     }
     updatepopover(cart)
-    $('#popcart').popover()
-    // $('#popcart').popover('show')
 
 
 
     //Clearcart
-    function clearcart(){
-        cart=JSON.parse(localStorage.getItem('cart'))
-        for(var item in cart){
-            document.getElementById('div' + item).innerHTML='<button id='+item+' class="btn btn-warning cart">Add To Cart</button>'
+    function clearcart() {
+        cart = JSON.parse(localStorage.getItem('cart'))
+        for (var item in cart) {
+            document.getElementById('div' + item).innerHTML = '<button id=' + item + ' class="btn btn-warning cart">Add To Cart</button>'
         }
         localStorage.clear()
-        cart={}
-        updatecart(cart)
+        cart = {}
+        updatepopover(cart)
     }
 
 
@@ -166,33 +173,37 @@
     //Cart updating task
     function updatecart(cart) {
         for (item in cart) {
-            document.getElementById("div" + item).innerHTML = "<button id='minus"+item+"' class='btn btn-warning minus'>-</button> <span id ='val"+item+"'>"+cart[item]+"</span> <button id='plus" +item+"' class='btn btn-warning plus'>+</button>";
+            document.getElementById("div" + item).innerHTML = "<button id='minus" + item + "' class='btn btn-warning minus'>-</button> <span id ='val" + item + "'>" + cart[item][1] + "</span> <button id='plus" + item + "' class='btn btn-warning plus'>+</button>";
 
         }
     }
 
 
 
-        //Minus button
-    $(".divprod").on('click','button.minus',function(){
-        a=this.id.slice(9, )
-        cart['prod' +a]=cart['prod' +a] - 1   
-        cart['prod' +a]=Math.max(0,cart['prod' +a]) 
-        document.getElementById('valprod' +a).innerHTML=cart['prod' +a]
+    //Minus button
+    $(".divprod").on('click', 'button.minus', function () {
+        a = this.id.slice(9,)
+        cart['prod' + a][1] = cart['prod' + a][1] - 1
+        cart['prod' + a][1] = Math.max(0, cart['prod' + a][1])
+        document.getElementById('valprod' + a).innerHTML = cart['prod' + a][1]
         localStorage.setItem('cart', JSON.stringify(cart))
-        });
+        updatepopover(cart)
+
+    });
 
 
 
 
 
-        //Plus button    
-    $(".divprod").on('click','button.plus',function(){
-        a=this.id.slice(8, )
-        cart['prod' +a]=cart['prod' +a] + 1   
-        document.getElementById('valprod' +a).innerHTML=cart['prod' +a] 
+    //Plus button    
+    $(".divprod").on('click', 'button.plus', function () {
+        a = this.id.slice(8,)
+        cart['prod' + a][1] = cart['prod' + a][1] + 1
+        document.getElementById('valprod' + a).innerHTML = cart['prod' + a][1]
         localStorage.setItem('cart', JSON.stringify(cart))
-        });
+        updatepopover(cart)
+
+    });
 
 
     //basic functions

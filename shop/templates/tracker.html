@@ -1,4 +1,84 @@
 {% extends 'basic.html' %}
 
-{% block title %} Order Tracker-My awesome cart {% endblock %}
-{% block body %} This is Our Body {% endblock %}
+{% block title %}Order Tracker-My awesome cart{% endblock %}
+{% block css %}
+<style>
+   #popcart{
+       display: none;
+   }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div id="db" class="col my-4">
+        <h2 id="h2">step 1 - Enter your ID to track your Order</h2>
+        <form method="POST" action="#" id="trackerform">{% csrf_token %}
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="id">Order ID</label>
+                    <input type="number" class="form-control" id="id" name="id" placeholder="Enter your Order ID">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="input">Email</label>
+                    <input type="email" class="form-control" id="input" name="email" placeholder="Enter your email">
+                </div>
+
+                <button type="submit" class="btn btn-success">Track Order</button>
+            </div>
+        <!-- </form> -->
+    </div>
+
+    <div class="col my-4">
+        <h2>Your Order Status :</h2>
+        <div id="items">
+            <ul class="list-group">
+
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}s
+
+<script>
+    $('#trackerform').on('submit',function (event) {
+        $('#items').empty();
+        var formdata = {
+            'id': $('input[name=id]').val(),
+            'email': $('input[name=email]').val(),
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        }
+
+        $.ajax({
+            type :'POST',
+            url :'/shop/tracker',
+            data :formdata,
+            encode :true
+        })
+
+
+        .done(function (data) {
+                updates = JSON.parse(data)
+                if (updates.length > 0 & updates != {}) {
+                    for (i = 0; i < updates.length;i++) {
+                        text = updates[i]['text']
+                        time = updates[i]['time']
+                        mystr = ` <li class="list-group-item d-flex justify-content-between align-items-center"><h5>${text}</h5><span class="badge badge-primary badge-pill"><h5>${time}</h5></span></li>`
+                        $('#items').append(mystr)
+                    }
+                }
+                else {
+                    mystr = `<h5 class="list-group-item d-flex justify-content-between align-items-center">No Order with this ID or Email
+                </h5>`
+
+                    $('#items').append(mystr)
+                }
+
+            });
+            event.preventDefault()
+    });
+</script>
+{% endblock %}
+
