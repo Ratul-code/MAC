@@ -1,0 +1,90 @@
+{% extends 'blog/basic.html' %}
+{% block title %}My awesome cart - Posting Blog{% endblock %}
+{% block css %} {% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <h3 class="pb-4 mb-4 font-italic ">
+                {{post.title}}
+            </h3>
+
+            <article class="blog-post">
+                <h2 class="blog-post-title">{{post.heading0}}</h2>
+                <p class="blog-post-meta">{{post.pub_date}}
+                <div class="fb-like" data-href="http://127.0.0.1:8000/blog/blogpost/{{post.post_id}}" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+                <br></p>
+
+                <!-- <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap.
+                    Basic typography, images, and code are all supported.</p> -->
+
+                <p>{{post.cheading0}}</p>
+
+                <div>
+                    <h2>{{post.heading1}}</h2>
+                    <p>{{post.cheading1}}</p>
+
+
+                    <h2>{{post.heading2}}</h2>
+                    <p>{{post.cheading2}}</p>
+                    <br>
+                    <hr>
+                    
+                    
+                    
+                    <div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogpost/{{post.post_id}}" data-numposts="2" data-width=""></div>
+
+
+                </div>
+                <br><br>
+                <hr>
+                <article class="blog-post">
+                   <em><h2><strong class="d-inline-block mb-2 text-dark"> Another blog Post</strong></h2></em>
+                    <div class="row my-2">
+                        
+                        <div class="col-md-12">
+                          <div class="row g-0 border rounded overflow-hidden flex-md-row my-2 mr-2 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static">
+                              <strong class="d-inline-block mb-2 text-primary"> MAC - Blog</strong>
+                              <h3 class="mb-0">{{sug.title}}</h3>
+                              <div class="mb-1 text-muted">{{sug.pub_date}}</div>
+                              <p class="mb-auto">{{sug.cheading0|slice:"0:90"}} . . .
+                              </p>
+                              <a href="/blog/blogpost/{{sug.post_id}}" class="stretched-link">Continue reading</a>
+                            </div>
+                            <div class="col-auto d-none d-lg-block">
+                              <img src="/media//{{sug.thumbnail}}" class="bd-placeholder-img" width="300" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
+                              aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                  
+                  </article><br><br>
+        </div>
+        
+ 
+        <div class="col-md-4">
+            <div class="p-4 mb-3 bg-light rounded">
+                <h4 class="font-italic">About</h4>
+                <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus
+                    sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+                    <br>
+                    <div class="fb-share-button" data-href="http://127.0.0.1:8000/blog/blogpost/{{post.post_id}}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fblog%2Fblogpost%2F3&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+            </div>
+
+
+            <div class="p-4">
+                <h4 class="font-italic">Contact us on :</h4>
+                <ol class="list-unstyled">
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

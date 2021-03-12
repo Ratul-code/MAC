@@ -1,4 +1,4 @@
-{% extends 'basic.html' %}
+{% extends 'shop/basic.html' %}
 
 {% block title %}Checkout-My awesome cart{% endblock %}
 {% block css %}
@@ -40,6 +40,7 @@
         <h2>Step 2 - Enter Address & Other Details:</h2>
         <form method="POST" action="/shop/checkout">{% csrf_token %}
             <input type="hidden" name='itemsJson' id="itemsJson">
+            <input type="hidden" name='amount' id="amount">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputname">Name</label>
@@ -98,7 +99,7 @@
         document.getElementById('h2').innerHTML = `<h2 id="h2c">step 1 - Add items In Your Cart Before Checking Out</h2>`
     }
     else {
-        let sum = 0
+        var sum = 0
         for (item in cart) {
             name = cart[item][0]
             qty = cart[item][1]
@@ -109,8 +110,9 @@
             sum = sum + price
 
         }
-        $('#items').append(`<br><br><li class="list-group-item d-flex justify-content-between align-items-center breadcrumb">Total Price Of Your Ordered Items<span class="badge badge-primary badge-pill">${sum}<b>&#x9f3;</b></span>
+        $('#items').append(`<br><br><li class="list-group-item d-flex justify-content-between align-items-center breadcrumb">Total Price Of Your Ordered Items<span class="badge badge-primary badge-pill"><span id="totalprice">${sum}</span><b>&#x9f3;</b></span>
                 </li>`)
+        $("#amount").val(sum)
     }
 
 
@@ -132,16 +134,22 @@
 
 
     $("#itemsJson").val(JSON.stringify(cart))
-    {% if thank %}
-    alert("Thanks for ordering. Your Order's id is {{id}}. Use this id to track your order on our tracker.Stay Happy")
-    document.location = "/shop"
-    localStorage.clear()
-    {% endif %}
+   
+
+    // $('#amount').val($('#totalprice').html())
 
 
 
     updatecartt(cart)
     console.log(cart)
 </script>
+
+{% if thank %}
+<script>
+alert("Thanks for ordering. Your Order's id is {{id}}. Use this id to track your order on our tracker.Stay Happy")
+document.location = "/shop"
+localStorage.clear()
+</script>
+{% endif %}
 
 {% endblock %}

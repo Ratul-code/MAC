@@ -1,4 +1,4 @@
-{% extends 'basic.html' %}
+{% extends 'shop/basic.html' %}
 
 {% block title %}{{product.Name}}-My awesome cart{% endblock %}
 {% block css %}
@@ -56,7 +56,7 @@
         }
         else {
             qty= 1
-            name=document.getElementById('name' + idstr).innerHTML
+            name=document.getElementById('name'+ idstr).innerHTML
             price = parseInt(document.getElementById('price' +idstr).innerHTML) 
             cart[idstr] = [name, qty, price]
             document.getElementById("div" + idstr).innerHTML = "<button id='minus"+idstr+"' class='btn btn-warning minus'>-</button> <span id ='val"+idstr+"'>"+cart[idstr][1]+"</span> <button id='plus"+idstr+"' class='btn btn-warning plus'>+</button>";
@@ -101,7 +101,14 @@
         a=this.id.slice(9, )
         cart['prod' +a][1]=cart['prod' +a][1] - 1   
         cart['prod' +a][1]=Math.max(0,cart['prod' +a][1]) 
-        document.getElementById('valprod' +a).innerHTML=cart['prod' +a][1]
+        if (cart['prod' + a][1] == 0) {
+            document.getElementById('div' + 'prod' + a).innerHTML = `<button id="prod{{i.id}}" class="btn btn-primary cart">Add To Cart</button>`
+            delete cart['prod' + a];
+            document.location=`/shop/product/${a}`
+        }
+        else {
+            document.getElementById('valprod' + a).innerHTML = cart['prod' + a][1]
+        }
         localStorage.setItem('cart', JSON.stringify(cart))
         updatepopover(cart)
         updatecartt(cart)
@@ -129,7 +136,7 @@
         popoverstr="<h5>Cart for your items on our shop</h5> <div class='mx-2 my-2'"+"<br>"
         var i=1;
         for(item in cart){
-            popoverstr=popoverstr + "<b>" + i + ". </b>" + cart[item][0] +"..."+ "qty : " + cart[item][1]  + "</br>"
+            popoverstr=`<b>` + `<em>`+popoverstr + "<b>" + i + ". </b>" + cart[item][0] +"..."+ "qty : " + cart[item][1]  + "</br>"
             i=i+1
         }
         popoverstr=popoverstr + "</div>"

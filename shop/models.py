@@ -46,6 +46,8 @@ class Order(models.Model):
 
     name=models.CharField(max_length=90,default="")
 
+    amount=models.IntegerField(default=0)
+
     email=models.CharField(max_length=111,default="")
 
     address=models.CharField(max_length=111,default="")

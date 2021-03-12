@@ -1,4 +1,4 @@
-{% extends 'basic.html' %}
+{% extends 'shop/basic.html' %}
 
 {% block title %} Contact-My awesome cart {% endblock %}
 {% block css %}
@@ -59,11 +59,11 @@
        
 {% endblock %}
 {% block js %} 
+{% if thank %}
 <script>
-    {% if thank %}
 
         alert("We got your Contact form. Thank You")
 
-    {% endif %}
 </script>
+    {% endif %}
 {% endblock %}

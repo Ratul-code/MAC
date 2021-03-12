@@ -1,0 +1,28 @@
+{% extends 'blog/basic.html' %}
+{% block title %}My awesome cart - Blog{% endblock %}
+{% block css %} {% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row my-2">
+    {% for i in blog %}
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row my-2 mr-2 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary"> MAC - Blog</strong>
+          <h3 class="mb-0">{{i.title}}</h3>
+          <div class="mb-1 text-muted">{{i.pub_date}}</div>
+          <p class="mb-auto">{{i.cheading0|slice:"0:90"}} . . .
+          </p>
+          <a href="blogpost/{{i.post_id}}" class="stretched-link">Continue reading</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img src="/media//{{i.thumbnail}}" class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
+          aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
