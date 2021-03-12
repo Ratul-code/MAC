@@ -1,0 +1,1 @@
+web: gunicorn My_Awesome_project.wsgi --log-file -
