@@ -26,7 +26,7 @@ SECRET_KEY = '&w%(e78of=al6swyiu+rz+!2*00_3&vy$h)%sm((_xa_82_t!j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ratul-crm-1.herokuapp.com','121.0.0.1']
+ALLOWED_HOSTS = ['ratul-crm-1.herokuapp.com','127.0.0.1']
 
 
 # Application definition
