@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-import django_heroku
+# import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '&w%(e78of=al6swyiu+rz+!2*00_3&vy$h)%sm((_xa_82_t!j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','ratul-crm-1.herokuapp.com']
+ALLOWED_HOSTS = ['ratul-crm-1.herokuapp.com','121.0.0.1']
 
 
 # Application definition
@@ -130,4 +130,4 @@ MEDIA_URL='/media/'
 MEDIA_ROOT='media'
 
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
